@@ -22,3 +22,8 @@ get_city x = [city | (id, country) <- countries, (_, city, _, country_id) <- cit
 -- 3.C
 num_city :: [(String, Int)]
 num_city = [(country, length (get_city country)) | (_, country) <- countries]
+
+--Question 4
+--eucl_dist :: [Float] [Float] -> Float
+--eucl_dist xs ys = sqrt (sum [(x - y) ^ 2 | x <- xs, y <- ys])
+eucl_dist xs ys = sqrt (sum [(x - y) ^ 2 | (x,y) <- zip xs ys])
