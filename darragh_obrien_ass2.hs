@@ -1,4 +1,17 @@
 import Data.List
+import Data.Char
+
+--helper functions
+--count the number of times an element appears in a list
+num_occ :: Eq a => a -> [a] -> Int
+num_occ x [] = 0
+num_occ x (y:ys)
+   | x==y = 1 + (num_occ x ys)
+   | otherwise = num_occ x ys
+--remove all occurences of an element from a list
+remove ::Eq a => a -> [a] -> [a]
+remove x list = [y | y <- list, y /= x]
+
 --Question 1
 --is_square :: Int -> Bool
 is_square x
@@ -7,9 +20,11 @@ is_square x
   | otherwise   = is_square (x `div` 2)
   
 --Question 2
---freq_letter_pc xs = [(x,length xs) | x <- xs , x /= ' ']
---freq_letter_pc xs = [(x,length xs) | x <- xs , x /= ' ']
-freq_letter_pc xs = nub xs
+-- remove spaces from string and convert to lower case first
+-- iterate through unique elements, count occurences and divide by lenth of string
+freq_letter_pc :: String -> [(Float, Char)]
+freq_letter_pc list = let new_list = map toLower (remove ' ' list)
+                      in [(fromIntegral (num_occ y new_list) / fromIntegral (length new_list), y) | y <- nub new_list, elem y ['a'..'z'] ]
 
 --Question 3
 --id, name, population, country_id
