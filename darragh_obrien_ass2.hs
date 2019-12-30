@@ -17,3 +17,5 @@ countries=[(1,"UK"),(2,"France"),(3,"Italy"),(4,"Spain")]
 get_city_above :: Int -> [String]
 get_city_above x = [y | (_,y,z,_) <- cities, z >= x]
 -- 3.B
+get_city :: String -> [String]
+get_city x = [city | (id, country) <- countries, (_, city, _, country_id) <- cities, x == country && id == country_id]
