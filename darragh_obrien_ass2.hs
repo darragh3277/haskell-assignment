@@ -1,3 +1,4 @@
+import Data.List
 --Question 1
 --is_square :: Int -> Bool
 is_square x
@@ -6,7 +7,9 @@ is_square x
   | otherwise   = is_square (x `div` 2)
   
 --Question 2
-freq_letter_pc xs = [(x,length xs) | x <- xs , x /= ' ']
+--freq_letter_pc xs = [(x,length xs) | x <- xs , x /= ' ']
+--freq_letter_pc xs = [(x,length xs) | x <- xs , x /= ' ']
+freq_letter_pc xs = nub xs
 
 --Question 3
 --id, name, population, country_id
@@ -24,6 +27,5 @@ num_city :: [(String, Int)]
 num_city = [(country, length (get_city country)) | (_, country) <- countries]
 
 --Question 4
---eucl_dist :: [Float] [Float] -> Float
---eucl_dist xs ys = sqrt (sum [(x - y) ^ 2 | x <- xs, y <- ys])
+eucl_dist :: [Float] -> [Float] -> Float
 eucl_dist xs ys = sqrt (sum [(x - y) ^ 2 | (x,y) <- zip xs ys])
