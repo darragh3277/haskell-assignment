@@ -19,3 +19,6 @@ get_city_above x = [y | (_,y,z,_) <- cities, z >= x]
 -- 3.B
 get_city :: String -> [String]
 get_city x = [city | (id, country) <- countries, (_, city, _, country_id) <- cities, x == country && id == country_id]
+-- 3.C
+num_city :: [(String, Int)]
+num_city = [(country, length (get_city country)) | (_, country) <- countries]
