@@ -1,5 +1,6 @@
 import Data.List
 import Data.Char
+import System.IO
 
 --helper functions
 --count the number of times an element appears in a list
@@ -48,5 +49,3 @@ num_city = [(country, length (get_city country)) | (_, country) <- countries]
 --Question 4
 eucl_dist :: [Float] -> [Float] -> Float
 eucl_dist xs ys = sqrt (sum [(x - y) ^ 2 | (x,y) <- zip xs ys])
-
---Question 5
