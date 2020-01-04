@@ -53,6 +53,22 @@ eucl_dist xs ys = sqrt (sum [(x - y) ^ 2 | (x,y) <- zip xs ys])
 --Question 5 see question_5.hs
 --Question 6 see question_6.hs
 
+--Question 8
+--Takes an input n and returns a list of points distriputed between (0,0) and (1,1)
+--Larger the input the larger the list
+list_of_points :: Int -> [(Float, Float)]
+list_of_points n = [(fromIntegral x/fromIntegral n,fromIntegral y/ fromIntegral n) | x <- [0..n], y <- [0..n]]
+--Takes input of n and returns approximate value of area of cirlce. As n increases so does percision
+--Gets a list of points in the square
+--Checks how many fall within the circle using x*x+y*y<1
+--Returns (num of points inside circle / num of total points) * 4
+--Higher the input greater the precision
+area_of_circle :: Int -> Float
+area_of_circle n = let points_list = list_of_points n
+                       inner_points_num = length [(x,y) | (x,y) <- points_list, ((x*x) + (y*y)) < 1]
+                   in (fromIntegral inner_points_num / fromIntegral (length points_list)) * 4
+
+
 --Question 9
 --In order for math series to work for both sample_series and pie_series
 --I added a check on pie_series. If the input is 0 return 0. This allows the sum
@@ -66,3 +82,6 @@ pie_series :: Float -> Float
 pie_series k | k == 0 = 0
              | otherwise = ((-1) ** (k+1)) * (4 / ((2*k)-1))
 math_series func n = sum [func x | x <- [0..(n-1)]]
+
+--Question 10
+integral func x y n = sum [func z | z <- [x..y]]
