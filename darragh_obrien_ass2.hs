@@ -53,6 +53,8 @@ eucl_dist xs ys = sqrt (sum [(x - y) ^ 2 | (x,y) <- zip xs ys])
 --Question 5 see question_5.hs
 --Question 6 see question_6.hs
 
+--Question 7
+
 --Question 8
 --Takes an input n and returns a list of points distriputed between (0,0) and (1,1)
 --Larger the input the larger the list
@@ -68,7 +70,6 @@ area_of_circle n = let points_list = list_of_points n
                        inner_points_num = length [(x,y) | (x,y) <- points_list, ((x*x) + (y*y)) < 1]
                    in (fromIntegral inner_points_num / fromIntegral (length points_list)) * 4
 
-
 --Question 9
 --In order for math series to work for both sample_series and pie_series
 --I added a check on pie_series. If the input is 0 return 0. This allows the sum
@@ -81,7 +82,21 @@ sample_series k = 1 / (2**k)
 pie_series :: Float -> Float
 pie_series k | k == 0 = 0
              | otherwise = ((-1) ** (k+1)) * (4 / ((2*k)-1))
+math_series :: (Float -> Float) -> Float -> Float
 math_series func n = sum [func x | x <- [0..(n-1)]]
 
 --Question 10
-integral func x y n = sum [func z | z <- [x..y]]
+--Function defined in question 10
+func_f :: Float -> Float
+func_f f = 0.5 * f
+--Can use func_f or pass in your own function
+--Integral takes a function and 3 other inputs. x and y positions on the x axis. n number of steps
+--Greater the n the greater the accuracy
+--First we determine the width of each rectangle w.
+--Then we get a list of each integral point ws.
+--Finally we sum each rectangles area. width by the height (returned input function value)
+integral :: (Float -> Float) -> Float -> Float -> Float -> Float
+integral f x y n = let w = (y-x)/(n)
+                       ws = map(\i -> x + i * w)[0..n-1]
+                   in sum [w * f iw | iw <- ws]
+
