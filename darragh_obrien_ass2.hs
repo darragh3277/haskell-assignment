@@ -49,3 +49,20 @@ num_city = [(country, length (get_city country)) | (_, country) <- countries]
 --Question 4
 eucl_dist :: [Float] -> [Float] -> Float
 eucl_dist xs ys = sqrt (sum [(x - y) ^ 2 | (x,y) <- zip xs ys])
+
+--Question 5 see question_5.hs
+--Question 6 see question_6.hs
+
+--Question 9
+--In order for math series to work for both sample_series and pie_series
+--I added a check on pie_series. If the input is 0 return 0. This allows the sum
+--function to be used for both. This is due to sample_series input k starting from 0
+--and pie_series input k starting from 1. If we wanted to just have pie_series
+--We could just use pie_series k = ((-1) ** (k+1)) * (4 / ((2*k)-1))
+--and in math series set the number list to start from 1 instead of 0
+sample_series :: Float -> Float
+sample_series k = 1 / (2**k)
+pie_series :: Float -> Float
+pie_series k | k == 0 = 0
+             | otherwise = ((-1) ** (k+1)) * (4 / ((2*k)-1))
+math_series func n = sum [func x | x <- [0..(n-1)]]
