@@ -86,6 +86,8 @@ math_series :: (Float -> Float) -> Float -> Float
 math_series func n = sum [func x | x <- [0..(n-1)]]
 
 --Question 10
+--Please note for question 10 I followed along with a lot of the content in this guide by Samuel Buteau
+--https://www.schoolofhaskell.com/user/Sam567/computational-physics/beginner-s-tools/simple-integration
 --Function defined in question 10
 func_f :: Float -> Float
 func_f f = 0.5 * f
@@ -99,4 +101,3 @@ integral :: (Float -> Float) -> Float -> Float -> Float -> Float
 integral f x y n = let w = (y-x)/(n)
                        ws = map(\i -> x + i * w)[0..n-1]
                    in sum [w * f iw | iw <- ws]
-
