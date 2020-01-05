@@ -20,7 +20,7 @@ num_occ x (y:ys)
 
 freq_letter_pc :: String -> [(Float, Char)]
 freq_letter_pc list = let new_list = map toLower (remove ' ' list)
-                      in [(fromIntegral (num_occ y new_list) / fromIntegral (length new_list), y) | y <- nub new_list, elem y ['a'..'z']]
+                      in [((fromIntegral (num_occ y new_list) / fromIntegral (length new_list))*100, y) | y <- nub new_list, elem y ['a'..'z']]
 
 --takes 2 inputs. y is the character and x is the frequency of that character in the text
 --returns 1 if frequency closer to english or 0 if closer to portuguese
@@ -42,5 +42,5 @@ get_lang x = do
                let freq_dist = freq_letter_pc x
                let total_chars = length freq_dist
                let diff_value = (sum [compare_freq x y | (x,y) <- freq_dist]) / fromIntegral total_chars
-               freq_dist
-               --if diff_value > 0.5 then "The text is in English" else "The text is in Portuguese"
+               --freq_dist
+               if diff_value > 0.5 then "The text is in English" else "The text is in Portuguese"
