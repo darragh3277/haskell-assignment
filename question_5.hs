@@ -18,6 +18,8 @@ num_occ x (y:ys)
    | x==y = 1 + (num_occ x ys)
    | otherwise = num_occ x ys
 
+--note that this is slightly different to the solution in question 2
+--question 2 has a sum total of 1 whereas this has a sum total of 100
 freq_letter_pc :: String -> [(Float, Char)]
 freq_letter_pc list = let new_list = map toLower (remove ' ' list)
                       in [((fromIntegral (num_occ y new_list) / fromIntegral (length new_list))*100, y) | y <- nub new_list, elem y ['a'..'z']]
