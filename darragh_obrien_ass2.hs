@@ -52,8 +52,7 @@ eucl_dist xs ys = sqrt (sum [(x - y) ^ 2 | (x,y) <- zip xs ys])
 
 --Question 5 see question_5.hs
 --Question 6 see question_6.hs
-
---Question 7
+--Question 7 see question_7.hs
 
 --Question 8
 --Takes an input n and returns a list of points distriputed between (0,0) and (1,1)
