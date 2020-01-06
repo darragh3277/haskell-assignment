@@ -43,10 +43,16 @@ shift_words ws i = [shift x i | x <- ws]
 --takes an input of words to test for occurances
 --shifts each char by +1 ind 
 --compares words each shift to the input dictionary
---returns a dipole of (shifted index, occurances of words)
+--returns a tuple of (occurances of words, shifted index)
 get_shift_freq :: [String] -> [String] -> [(Int, Int)]
-get_shift_freq inp dict = [(x, total_words (shift_words inp x) dict) | x <- [0..25]]
+get_shift_freq inp dict = [(total_words (shift_words inp x) dict, x) | x <- [0..25]]
 
+--takes tuple input (occurances of words, shifted index)
+--returns index
+index :: (Int, Int) -> Int
+index (_,x) = x
+
+--Note, this is a slow process
 --builds the dictionary and writes it to dict.txt
 --first read the input of the source files
 --get all unique words of source files
@@ -61,15 +67,29 @@ build_dictionary = do
   let ulysses_words = get_words ulysses
   let dorian_words = get_words dorian
   let pride_words = get_words pride
-  let dict =  nub (ulysses_words ++ dorian_words ++ pride_words)
+  let dict =  unwords (nub (ulysses_words ++ dorian_words ++ pride_words))
   writeFile "dict.txt" (show dict)
   putStrLn "Dictionary created"
   
+--Note, this is a slow process
+--Reads the input in dit.txt.chp. Creates a list of unique words form the input
+--Reads input in dict.txt and creates a list of the words in it
+--highest_index shifts the index 26 times. It creates a sorted tuple list with the (occurances of words, shifted index)
+--it then takes the shifted index in the last tuple
+--decoded_words shifts all the encrypted words to the index provided by highest_index
+--decoded_str just converts the list back to a string
+--We then write the output to decoded.txt and print a message saying we are done.
+guess_index :: IO ()  
 guess_index = do 
   msg <- readFile "dit.txt.chp"
   dict <- readFile "dict.txt"
-  --let msg_words = get_words msg
-  putStrLn "here"
+  let msg_words = get_words msg
+  let dict_list = words dict
+  let highest_index = index (last (sort (get_shift_freq msg_words dict_list)))
+  let decoded_words = shift_words msg_words highest_index
+  let decoded_str = unwords decoded_words
+  writeFile "decoded.txt" (show decoded_str)
+  putStrLn "Message decoded."
   
   
   
