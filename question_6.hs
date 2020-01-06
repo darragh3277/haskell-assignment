@@ -4,11 +4,12 @@ import System.IO
 --ensure input filename is same as below
 main = do 
   input <- readFile "input.txt"
-  txt <- getLine
-  putStrLn (encode txt input)
+  putStrLn "Select an index: "
+  ind <- getLine
+  putStrLn (encode ind input)
   
 encode :: String -> String -> String
-encode txt str = [ shift txt x | x <- str  ]
+encode ind str = [shift ind x | x <- str]
 
 --subtract value of a to start from 0
 let2Int :: Char -> Int
@@ -19,4 +20,5 @@ int2Let x = chr (ord 'a' + x)
 
 --uses mod 26 so it loops round standard 26 letter alphabet
 shift :: String -> Char -> Char
-shift txt x = int2Let ( mod ((read txt :: Int) + let2Int x) 26)
+shift _ ' ' = ' '
+shift ind x = int2Let ( mod ((read ind :: Int) + let2Int x) 26)
